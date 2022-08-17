@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // 1. Use mongoose to establish a connection to MongoDB
-mongoose.connect('mongodb://localhost:3000/glossary-app')
+mongoose.connect('mongodb://localhost/glossary-app')
 
 // 2. Set up any schema and models needed by the app
 const glossarySchema = new mongoose.Schema({
@@ -24,8 +24,8 @@ console.log(terms[0]);
 
 let bulkSave = (terms) => {
   // return Glossary.create(data);
-  let data = new Glossary(terms);
-  return Glossary.create(data)
+  // let data = new Glossary(terms);
+  return Glossary.create(terms)
     .then((response) => {
       console.log(response.data);
       console.log("success - loaded data to database!")
@@ -33,25 +33,29 @@ let bulkSave = (terms) => {
     .catch((err) => {
       console.log(err);
       console.log("failed to save data to database;")
-    })
+    });
 
 }
 
 // save
-
 let save = (term) => {
   let data = new Glossary(term);
   return data.save(function(err) {
     if (err) {
       console.log(err);
       console.log("failed to save data to database;")
+    } else {
+      console.log("successfully loaded to database.")
     }
-  })
+  });
 }
 
-// Test data upload
-Glossary.findOne();
+// Test bulk data load
+bulkSave(terms);
 
 // search
 
 // get
+let getAll = () => {
+  // TODO: fill this in
+}
