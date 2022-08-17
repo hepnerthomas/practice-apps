@@ -58,12 +58,19 @@ class Glossary extends React.Component {
 
   handleRemove(event) {
     // event.preventDefault();
-    console.log("word: ", event.target.value);
+    console.log(event);
+    var word = event.target.value;
     var input = {"word": event.target.value};
-    axios.delete('/glossary', input)
+    console.log(input);
+    axios.delete('/glossary', {
+      method: 'delete',
+      data: input
+    })
       .then((res) => {
+        console.log(res);
         axios.get('/glossary')
           .then((response) => {
+            console.log(response.data);
             this.setState({glossary: response.data});
             console.log(`successfully deleted word: ${event.target.value}!`);
           })

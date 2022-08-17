@@ -52,6 +52,7 @@ app.post('/glossary', (req, res) => {
 
 // delete
 app.delete('/glossary', (req, res) => {
+  console.log("request body");
   console.log(req.body);
   db.remove(req.body)
   .then(() => {
