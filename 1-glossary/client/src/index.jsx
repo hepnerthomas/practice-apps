@@ -1,12 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import GlossaryList from './components/GlossaryList.jsx';
+import Glossary from './components/Glossary.jsx';
 // var GlossaryList = require('./components/GlossaryList.jsx');
 
 render(
   <div>
-    <h2>Glossary App</h2>
-    <GlossaryList />
+    <h1>Glossary App</h1>
+    <Glossary />
   </div>,
   document.getElementById("root")
 );
