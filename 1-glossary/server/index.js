@@ -49,5 +49,18 @@ app.post('/glossary', (req, res) => {
 
 });
 
+
+// delete
+app.delete('/glossary', (req, res) => {
+  console.log(req.body);
+  db.remove(req.body)
+  .then(() => {
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    res.sendStatus(400);
+  });
+});
+
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);

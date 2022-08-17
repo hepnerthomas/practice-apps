@@ -12,12 +12,6 @@ const glossarySchema = new mongoose.Schema({
 // 3. Export the models
 const Glossary = mongoose.model('Glossary', glossarySchema);
 
-// // Load some example data to test
-// var terms = require('../testData.json');
-// console.log("Size of Dataset: ", terms.length);
-// console.log(terms[0]);
-
-
 // 4. Import the models into any modules that need them
 
 // bulkSave
@@ -52,6 +46,11 @@ let save = (term) => {
 }
 
 // // Test bulk data load
+// // Load some example data to test
+// var terms = require('../testData.json');
+// console.log("Size of Dataset: ", terms.length);
+// console.log(terms[0]);
+
 // bulkSave(terms);
 
 // search
@@ -61,4 +60,9 @@ let getAll = () => {
   return Glossary.find();
 }
 
-module.exports = {bulkSave, save, getAll};
+// remove/delete
+let remove = (term) => {
+  return Glossary.deleteOne(term);
+}
+
+module.exports = {bulkSave, save, getAll, remove};

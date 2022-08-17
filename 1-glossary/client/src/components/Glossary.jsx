@@ -14,6 +14,7 @@ class Glossary extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +56,23 @@ class Glossary extends React.Component {
 
   }
 
+  handleRemove(event) {
+    // event.preventDefault();
+    console.log("word: ", event.target.value);
+    var input = {"word": event.target.value};
+    axios.delete('/glossary', input)
+      .then((res) => {
+        axios.get('/glossary')
+          .then((response) => {
+            this.setState({glossary: response.data});
+            console.log(`successfully deleted word: ${event.target.value}!`);
+          })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
 
     return (
@@ -65,7 +83,7 @@ class Glossary extends React.Component {
         <br></br>
         <hr></hr>
         <br></br>
-        <GlossaryList glossary={this.state.glossary}/>
+        <GlossaryList glossary={this.state.glossary} handleRemove={this.handleRemove}/>
         <br></br>
         <hr></hr>
         <br></br>
