@@ -41,6 +41,14 @@ let bulkSave = (terms) => {
 let save = (term) => {
   let data = new Glossary(term);
   return data.save();
+  // return data.save(function(err) {
+  //   if (err) {
+  //     console.log(err);
+  //     console.log("failed to save data to database;")
+  //   } else {
+  //     console.log("successfully loaded to database.")
+  //   }
+  // });
 }
 
 // // Test bulk data load
