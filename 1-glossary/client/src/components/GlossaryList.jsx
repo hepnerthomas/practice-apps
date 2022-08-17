@@ -9,13 +9,14 @@ class GlossaryList extends React.Component {
 
   render() {
 
-    var {glossary, handleRemove} = this.props;
+    var {glossary, handleRemove, handleEdit} = this.props;
 
     var glossaryListComponents = glossary.map((component) => {
       return <GlossaryListComponent
         key={component.word}
         component={component}
         handleRemove={handleRemove}
+        handleEdit={handleEdit}
         />;
     });
 

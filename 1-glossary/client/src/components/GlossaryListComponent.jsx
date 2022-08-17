@@ -7,12 +7,12 @@ class GlossaryListComponent extends React.Component {
   }
 
   render() {
-    const {component, handleRemove} = this.props;
+    const {component, handleRemove, handleEdit} = this.props;
     return (
       <div key={component.word}>
         <li>
           <strong>{component.word}</strong> : <em>{component.description}</em>
-          <button>Edit</button>
+          <button onClick={handleEdit} value={component.word}>Edit</button>
           <button onClick={handleRemove} value={component.word}>Delete</button>
         </li>
       </div>

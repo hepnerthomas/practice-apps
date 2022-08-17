@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/glossary-app')
 
 // 2. Set up any schema and models needed by the app
 const glossarySchema = new mongoose.Schema({
-  word: String,
+  word: {type: String, unique: true},
   description: String
 });
 
@@ -46,7 +46,7 @@ let save = (term) => {
 }
 
 // // Test bulk data load
-// // Load some example data to test
+// Load some example data to test
 // var terms = require('../testData.json');
 // console.log("Size of Dataset: ", terms.length);
 // console.log(terms[0]);
@@ -65,4 +65,9 @@ let remove = (term) => {
   return Glossary.deleteOne(term);
 }
 
-module.exports = {bulkSave, save, getAll, remove};
+// edit an entry
+let replace = (filter, replacement) => {
+  return Glossary.findOneAndReplace(filter, replacement);
+}
+
+module.exports = {bulkSave, save, getAll, remove, replace};

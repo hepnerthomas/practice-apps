@@ -52,8 +52,8 @@ app.post('/glossary', (req, res) => {
 
 // delete
 app.delete('/glossary', (req, res) => {
-  console.log("request body");
-  console.log(req.body);
+  // console.log("request body");
+  // console.log(req.body);
   db.remove(req.body)
   .then(() => {
     res.sendStatus(200);
@@ -61,6 +61,21 @@ app.delete('/glossary', (req, res) => {
   .catch((err) => {
     res.sendStatus(400);
   });
+});
+
+// update
+app.post('/glossary/update', (req, res) => {
+  console.log("request body");
+  console.log(req.body.original);
+  console.log(req.body.replacement);
+  db.replace(req.body.original, req.body.replacement)
+  .then(() => {
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    res.sendStatus(400);
+  });
+
 });
 
 app.listen(process.env.PORT);

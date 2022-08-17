@@ -15,16 +15,17 @@ class Glossary extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentDidMount() {
     // axios get request
     axios.get('/glossary')
       .then((response) => {
-        console.log("Axios GET request: ");
-        console.log(response.data);
+        // console.log("Axios GET request: ");
+        // console.log(response.data);
         this.setState({glossary: response.data});
-        console.log("initial state set successfully!")
+        // console.log("initial state set successfully!")
       })
       .catch((error) => {
         console.log(error);
@@ -58,10 +59,10 @@ class Glossary extends React.Component {
 
   handleRemove(event) {
     // event.preventDefault();
-    console.log(event);
+    // console.log(event);
     var word = event.target.value;
     var input = {"word": event.target.value};
-    console.log(input);
+    // console.log(input);
     axios.delete('/glossary', {
       method: 'delete',
       data: input
@@ -70,14 +71,39 @@ class Glossary extends React.Component {
         console.log(res);
         axios.get('/glossary')
           .then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             this.setState({glossary: response.data});
-            console.log(`successfully deleted word: ${event.target.value}!`);
+            // console.log(`successfully deleted word: ${event.target.value}!`);
           })
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+
+  handleEdit(event) {
+    var word = event.target.value;
+    var description = window.prompt("Enter new description:");
+    var input = {
+      original:{"word": event.target.value},
+      replacement:  {"word": event.target.value, "description": description}
+    }
+    console.log(input);
+    axios.post('/glossary/update', input)
+      .then((response) => {
+        // console.log("Word saved to the glossary!");
+        axios.get('/glossary')
+          .then((response) => {
+            // console.log("GET request success!");
+            this.setState({glossary: response.data});
+            // console.log('state updated successfully');
+          })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   }
 
   render() {
@@ -90,7 +116,10 @@ class Glossary extends React.Component {
         <br></br>
         <hr></hr>
         <br></br>
-        <GlossaryList glossary={this.state.glossary} handleRemove={this.handleRemove}/>
+        <GlossaryList glossary={this.state.glossary}
+                      handleRemove={this.handleRemove}
+                      handleEdit={this.handleEdit}
+                      />
         <br></br>
         <hr></hr>
         <br></br>
