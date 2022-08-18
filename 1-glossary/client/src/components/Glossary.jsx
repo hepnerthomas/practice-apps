@@ -11,13 +11,15 @@ class Glossary extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      glossary: []
+      glossary: [],
+      searchText: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleDisplayGlossary = this.handleDisplayGlossary.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +34,20 @@ class Glossary extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  handleDisplayGlossary(event) {
+    axios.get('/glossary')
+    .then((response) => {
+      // console.log("Axios GET request: ");
+      // console.log(response.data);
+      this.setState({glossary: response.data});
+      this.setState({searchText: ''});
+      // console.log("initial state set successfully!")
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   handleSubmit(event) {
@@ -120,6 +136,7 @@ class Glossary extends React.Component {
 
         console.log(response);
         this.setState({glossary: response.data});
+        this.setState({searchText: input.word});
       })
       .catch((error) => {
         console.log(error);
@@ -159,8 +176,10 @@ class Glossary extends React.Component {
         <hr></hr>
         <br></br>
         <GlossaryList glossary={this.state.glossary}
+                      searchText={this.state.searchText}
                       handleRemove={this.handleRemove}
                       handleEdit={this.handleEdit}
+                      handleDisplayGlossary={this.handleDisplayGlossary}
                       />
         <br></br>
         <hr></hr>

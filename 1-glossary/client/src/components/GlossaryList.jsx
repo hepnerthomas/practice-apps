@@ -9,7 +9,7 @@ class GlossaryList extends React.Component {
 
   render() {
 
-    var {glossary, handleRemove, handleEdit} = this.props;
+    var {glossary, searchText, handleRemove, handleEdit, handleDisplayGlossary} = this.props;
 
     var glossaryListComponents = glossary.map((component) => {
       return <GlossaryListComponent
@@ -20,12 +20,26 @@ class GlossaryList extends React.Component {
         />;
     });
 
-    return (
-      <div>
-        <h2>Glossary</h2>
-        {glossaryListComponents}
-      </div>
-    )
+    if (searchText === '') {
+      return (
+        <div>
+          <h2>Glossary</h2>
+          {glossaryListComponents}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <h2>Glossary</h2>
+          <div>
+            Displaying results for <em><strong>{searchText}</strong></em>.
+            <button onClick={handleDisplayGlossary}>Display full glossary.</button>
+          </div>
+          {glossaryListComponents}
+        </div>
+      )
+    }
+
   }
 
 }
