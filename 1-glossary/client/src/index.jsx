@@ -5,7 +5,7 @@ import Glossary from './components/Glossary.jsx';
 
 render(
   <div>
-    <h1>Glossary App</h1>
+    <h1>Urban Glossary</h1>
     <Glossary />
   </div>,
   document.getElementById("root")
