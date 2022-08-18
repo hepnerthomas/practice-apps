@@ -15,7 +15,7 @@ class GlossaryPages extends React.Component {
         </button>
       );
     }
-    console.log(pageButtons);
+    // console.log(pageButtons);
     return (
       <div>
         {pageButtons}

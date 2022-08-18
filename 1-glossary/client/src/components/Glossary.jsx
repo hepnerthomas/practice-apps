@@ -57,8 +57,8 @@ class Glossary extends React.Component {
         }
     })
     .then((response) => {
-      console.log("Axios GET request: ");
-      console.log(response);
+      // console.log("Axios GET request: ");
+      // console.log(response);
       this.setState({glossaryPage: response.data});
       this.setState({currentPage: event.target.value});
       // console.log("initial state set successfully!")
@@ -171,8 +171,17 @@ class Glossary extends React.Component {
       .then((response) => {
 
         console.log(response);
+        // Reset the glossary to only search results
         this.setState({glossary: response.data});
-        this.setState({searchText: input.word});
+
+        // Reset everything else
+        this.setState({
+          glossaryPage: this.state.glossary.slice(0, 10),
+          searchText: input.word,
+          nPages: Math.ceil(this.state.glossary.length/10),
+          currentPage: 1
+        });
+        // this.setState({searchText: input.word});
       })
       .catch((error) => {
         console.log(error);

@@ -84,8 +84,8 @@ let replace = (filter, replacement) => {
 let search = (input) => {
   var searchText = input.word;
   return Glossary.find( {'word': { $regex: searchText, $options: 'i' } } )
-                 .sort({'word': 'asc', 'description': 'asc'})
-                 .limit(10);
+                 .sort({'word': 'asc', 'description': 'asc'});
+                //  .limit(10);
 }
 
 module.exports = {bulkSave, save, getAll, remove, replace, search, getPageResults};
