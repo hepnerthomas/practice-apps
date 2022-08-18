@@ -113,6 +113,24 @@ class Glossary extends React.Component {
     event.preventDefault();
     console.log(event.target[0].value);
     console.log("submitted search query!");
+
+    // Get all terms in glossary
+    var terms = this.state.glossary.map((component) => {
+      return component.word;
+    })
+    console.log(terms);
+
+    // Get all descriptions in glossary
+    var descriptions = this.state.glossary.map((component) => {
+      return component.description;
+    })
+    console.log(descriptions);
+
+    // Create a score for each compoent in glossary
+    var scores = this.state.glossary.map((component) => {
+      return {"word": component.word, "score": 0};
+    })
+    console.log(scores);
   }
 
   render() {
