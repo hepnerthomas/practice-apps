@@ -65,12 +65,29 @@ app.delete('/glossary', (req, res) => {
 
 // update
 app.post('/glossary/update', (req, res) => {
-  console.log("request body");
-  console.log(req.body.original);
-  console.log(req.body.replacement);
+  // console.log("request body");
+  // console.log(req.body.original);
+  // console.log(req.body.replacement);
   db.replace(req.body.original, req.body.replacement)
   .then(() => {
     res.sendStatus(200);
+  })
+  .catch((err) => {
+    res.sendStatus(400);
+  });
+
+});
+
+
+// search
+app.post('/glossary/search', (req, res) => {
+  console.log("request body");
+  console.log(req.body);
+  db.search(req.body)
+  .then((response) => {
+    console.log("response: ");
+    console.log(response);
+    res.json(response);
   })
   .catch((err) => {
     res.sendStatus(400);

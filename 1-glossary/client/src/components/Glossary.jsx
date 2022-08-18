@@ -111,26 +111,37 @@ class Glossary extends React.Component {
 
   handleSearch(event) {
     event.preventDefault();
-    console.log(event.target[0].value);
+    // console.log(event.target[0].value);
     console.log("submitted search query!");
+    var input = {"word": event.target[0].value};
+    console.log(input);
+    axios.post('/glossary/search', input)
+      .then((response) => {
 
-    // Get all terms in glossary
-    var terms = this.state.glossary.map((component) => {
-      return component.word;
-    })
-    console.log(terms);
+        console.log(response);
+        this.setState({glossary: response.data});
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 
-    // Get all descriptions in glossary
-    var descriptions = this.state.glossary.map((component) => {
-      return component.description;
-    })
-    console.log(descriptions);
+    // // Get all terms in glossary
+    // var terms = this.state.glossary.map((component) => {
+    //   return component.word;
+    // })
+    // console.log(terms);
 
-    // Create a score for each compoent in glossary
-    var scores = this.state.glossary.map((component) => {
-      return {"word": component.word, "score": 0};
-    })
-    console.log(scores);
+    // // Get all descriptions in glossary
+    // var descriptions = this.state.glossary.map((component) => {
+    //   return component.description;
+    // })
+    // console.log(descriptions);
+
+    // // Create a score for each compoent in glossary
+    // var scores = this.state.glossary.map((component) => {
+    //   return {"word": component.word, "score": 0};
+    // })
+    // console.log(scores);
   }
 
   render() {

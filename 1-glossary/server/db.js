@@ -70,4 +70,11 @@ let replace = (filter, replacement) => {
   return Glossary.findOneAndReplace(filter, replacement);
 }
 
-module.exports = {bulkSave, save, getAll, remove, replace};
+
+// search words and descriptions
+let search = (input) => {
+  var searchText = input.word;
+  return Glossary.find( {'word': { $regex: searchText, $options: 'i' } } );
+}
+
+module.exports = {bulkSave, save, getAll, remove, replace, search};
