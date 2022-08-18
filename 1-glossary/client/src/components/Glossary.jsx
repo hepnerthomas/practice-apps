@@ -76,6 +76,7 @@ class Glossary extends React.Component {
       this.setState({glossary: response.data});
       this.setState({searchText: ''});
       var numPages = Math.ceil(this.state.glossary.length/10);
+      this.setState({glossaryPage: this.state.glossary.slice(0, 10)});
       this.setState({nPages: numPages});
       this.setState({currentPage: 1});
       // console.log("initial state set successfully!")
