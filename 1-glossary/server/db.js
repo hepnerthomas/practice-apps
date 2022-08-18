@@ -57,7 +57,7 @@ let save = (term) => {
 
 // get
 let getAll = () => {
-  return Glossary.find();
+  return Glossary.find().sort({'word': 'asc', 'description': 'asc'});
 }
 
 // remove/delete
@@ -74,7 +74,8 @@ let replace = (filter, replacement) => {
 // search words and descriptions
 let search = (input) => {
   var searchText = input.word;
-  return Glossary.find( {'word': { $regex: searchText, $options: 'i' } } );
+  return Glossary.find( {'word': { $regex: searchText, $options: 'i' } } )
+                 .sort({'word': 'asc', 'description': 'asc'});
 }
 
 module.exports = {bulkSave, save, getAll, remove, replace, search};
