@@ -4,6 +4,7 @@ const axios = require('axios');
 // Import React Components
 import GlossaryList from './GlossaryList.jsx';
 import GlossaryForm from './GlossaryForm.jsx';
+import GlossarySearch from './GlossarySearch.jsx';
 
 class Glossary extends React.Component {
 
@@ -16,6 +17,7 @@ class Glossary extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -106,10 +108,21 @@ class Glossary extends React.Component {
 
   }
 
+
+  handleSearch(event) {
+    event.preventDefault();
+    console.log(event.target[0].value);
+    console.log("submitted search query!");
+  }
+
   render() {
 
     return (
       <div>
+        <hr></hr>
+        <br></br>
+        <GlossarySearch handleSearch={this.handleSearch}/>
+        <br></br>
         <hr></hr>
         <br></br>
         <GlossaryForm handleSubmit={this.handleSubmit}/>
