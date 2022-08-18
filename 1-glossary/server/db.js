@@ -60,6 +60,15 @@ let getAll = () => {
   return Glossary.find().sort({'word': 'asc', 'description': 'asc'});
 }
 
+
+let getPageResults = (nPages, currentPage) => {
+  return Glossary
+        .find()
+        .sort({'word': 'asc', 'description': 'asc'})
+        .skip( currentPage > 0 ? ( ( currentPage - 1 ) * 10 ) : 0 )
+        .limit(10);
+}
+
 // remove/delete
 let remove = (term) => {
   return Glossary.deleteOne(term);
@@ -75,7 +84,8 @@ let replace = (filter, replacement) => {
 let search = (input) => {
   var searchText = input.word;
   return Glossary.find( {'word': { $regex: searchText, $options: 'i' } } )
-                 .sort({'word': 'asc', 'description': 'asc'});
+                 .sort({'word': 'asc', 'description': 'asc'})
+                 .limit(10);
 }
 
-module.exports = {bulkSave, save, getAll, remove, replace, search};
+module.exports = {bulkSave, save, getAll, remove, replace, search, getPageResults};

@@ -5,6 +5,7 @@ const axios = require('axios');
 import GlossaryList from './GlossaryList.jsx';
 import GlossaryForm from './GlossaryForm.jsx';
 import GlossarySearch from './GlossarySearch.jsx';
+import GlossaryPages from './GlossaryPages.jsx';
 
 class Glossary extends React.Component {
 
@@ -12,7 +13,10 @@ class Glossary extends React.Component {
     super(props)
     this.state = {
       glossary: [],
-      searchText: ''
+      glossaryPage: [],
+      searchText: '',
+      nPages: 1,
+      currentPage: 1
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,6 +24,7 @@ class Glossary extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleDisplayGlossary = this.handleDisplayGlossary.bind(this);
+    this.handleGetPageResults = this.handleGetPageResults.bind(this);
   }
 
   componentDidMount() {
@@ -29,11 +34,38 @@ class Glossary extends React.Component {
         // console.log("Axios GET request: ");
         // console.log(response.data);
         this.setState({glossary: response.data});
+        this.setState({glossaryPage: this.state.glossary.slice(0, 10)});
+        var numPages = Math.ceil(this.state.glossary.length/10);
+        this.setState({nPages: numPages});
+        this.setState({currentPage: 1});
         // console.log("initial state set successfully!")
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+
+  handleGetPageResults(event) {
+    console.log("Page Clicked: ", event.target.value);
+    axios.request({
+      url: '/glossary/page',
+      method: 'post',
+      data: {
+          "nPages": this.state.nPages,
+          "currentPage": event.target.value
+        }
+    })
+    .then((response) => {
+      console.log("Axios GET request: ");
+      console.log(response);
+      this.setState({glossaryPage: response.data});
+      this.setState({currentPage: event.target.value});
+      // console.log("initial state set successfully!")
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   handleDisplayGlossary(event) {
@@ -43,6 +75,9 @@ class Glossary extends React.Component {
       // console.log(response.data);
       this.setState({glossary: response.data});
       this.setState({searchText: ''});
+      var numPages = Math.ceil(this.state.glossary.length/10);
+      this.setState({nPages: numPages});
+      this.setState({currentPage: 1});
       // console.log("initial state set successfully!")
     })
     .catch((error) => {
@@ -177,11 +212,16 @@ class Glossary extends React.Component {
         <hr></hr>
         <br></br>
         <GlossaryList glossary={this.state.glossary}
+                      glossaryPage={this.state.glossaryPage}
                       searchText={this.state.searchText}
                       handleRemove={this.handleRemove}
                       handleEdit={this.handleEdit}
                       handleDisplayGlossary={this.handleDisplayGlossary}
                       />
+        <br></br>
+        <hr></hr>
+        <br></br>
+        <GlossaryPages nPages={this.state.nPages} handleGetPageResults={this.handleGetPageResults}/>
         <br></br>
         <hr></hr>
         <br></br>

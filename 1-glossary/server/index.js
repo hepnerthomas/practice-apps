@@ -36,6 +36,22 @@ app.get('/glossary', (req, res) => {
   });
 })
 
+// get page results
+app.post('/glossary/page', (req, res) => {
+  // uses the getAll function
+  console.log(req.body);
+  var nPages = req.body.nPages;
+  var currentPage = req.body.currentPage;
+  console.log(nPages);
+  console.log(currentPage);
+  db.getPageResults(nPages, currentPage)
+  .then((data) => {
+    res.json(data);
+  })
+  .catch((err) => {
+    res.sendStatus(404);
+  });
+})
 
 // post
 app.post('/glossary', (req, res) => {
