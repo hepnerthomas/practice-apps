@@ -71,6 +71,7 @@ class Glossary extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+        alert(`The word, ${word},  already exists in the glossary. Please add a new word or edit the existing word in the glossary below!`);
       });
 
   }
