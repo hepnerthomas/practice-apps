@@ -13,12 +13,63 @@ const db = Promise.promisifyAll(connection, { multiArgs: true });
 
 db.connectAsync()
   .then(() => console.log(`Connected to MySQL as id: ${db.threadId}`))
+
+  // Create Database
   .then(() =>
-    // Expand this table definition as needed:
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS responses (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)"
+      "CREATE TABLE IF NOT EXISTS responses \
+      ( \
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, \
+        user_id VARCHAR(60), \
+        name VARCHAR(30), \
+        email VARCHAR(30), \
+        password VARCHAR(60), \
+        line1 VARCHAR(50), \
+        line2 VARCHAR(50), \
+        city VARCHAR(30), \
+        state VARCHAR(20), \
+        zipcode INTEGER, \
+        phone_number VARCHAR(20), \
+        credit_card VARCHAR(50), \
+        expiry_date DATE, \
+        cvv INTEGER, \
+        billing_zip_code INTEGER \
+      )"
     )
   )
+  // // Insert test data into db
+  // .then(() => {
+  //   db.queryAsync(
+  //     " INSERT INTO responses () \
+  //       VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password', \
+  //       '208 S 49th Street', 'no second line', 'Yakima', \
+  //       'WA', 98901, '5094943965', 'credit card number', '2022-08-19', 309, 98901 \
+  //       ); \
+  //     "
+  //   )
+  // })
   .catch((err) => console.log(err));
 
+// Post: add user data to the responses table
+
+
+
+db.updateAsync = (userInfo) => {
+  return db.queryAsync(
+    " INSERT INTO responses () \
+      VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password', \
+            '208 S 49th Street', 'no second line', 'Yakima', \
+            'WA', 98901, '5094943965', 'credit card number', '2022-08-19', 309, 98901 \
+            ); \
+    "
+  );
+  // .then(() => {
+
+  // })
+  // .catch((err) => {
+
+  // });
+}
+
 module.exports = db;
+
