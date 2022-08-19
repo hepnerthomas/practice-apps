@@ -184,6 +184,7 @@ class Glossary extends React.Component {
             console.log("Are we here? ", this.state.glossaryPage.length);
             if (this.state.glossaryPage.length === 0) {
               // var event = ;
+              this.state.nPages = this.state.nPages > 1 ? this.state.nPages - 1 : 1;
               var deleteOnlyItemEvent = new CustomEvent('deleteOnlyItem', {detail: this.state.currentPage - 1});
               console.log("Current Page is: ", this.state.currentPage)
               console.log(deleteOnlyItemEvent);
