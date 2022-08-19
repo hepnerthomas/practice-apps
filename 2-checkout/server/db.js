@@ -51,18 +51,19 @@ db.connectAsync()
   .catch((err) => console.log(err));
 
 // Post: add user data to the responses table
-
-
-
 db.updateAsync = (userInfo) => {
   return db.queryAsync(
     " INSERT INTO responses () \
-      VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password', \
-            '208 S 49th Street', 'no second line', 'Yakima', \
-            'WA', 98901, '5094943965', 'credit card number', '2022-08-19', 309, 98901 \
-            ); \
-    "
+      VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
+    ",
+    userInfo
   );
+
+  // VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password', \
+  // '208 S 49th Street', 'no second line', 'Yakima', \
+  // 'WA', 98901, '5094943965', 'credit card number', '2022-08-19', 309, 98901 \
+  // ); \
+
   // .then(() => {
 
   // })
