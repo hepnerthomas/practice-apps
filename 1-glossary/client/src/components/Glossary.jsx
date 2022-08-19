@@ -49,6 +49,7 @@ class Glossary extends React.Component {
 
   handleGetPageResults(event) {
     // console.log("Page Clicked: ", event.target.value || event.detail);
+    console.log(this.state.nPages);
     var currentPage = event.target === null ? event.detail : event.target.value;
     axios.request({
       url: '/glossary/page',
@@ -130,26 +131,27 @@ class Glossary extends React.Component {
         //     // console.log('state updated successfully');
         //   })
 
-        this.getCurrentPageResults()
-          .then(() => {
-            alert(`${word}, has been added to the glossary!`);
-          })
-
         // this.getCurrentPageResults()
         //   .then(() => {
         //     alert(`${word}, has been added to the glossary!`);
-        //     console.log("Are we here? ", this.state.glossaryPage.length);
-        //     if (this.state.glossaryPage.length === 10) {
-        //       // var event = ;
-        //       var addFirstItemEvent = new CustomEvent('addFirstItemEvent', {detail: this.state.currentPage + 1});
-        //       console.log("Current Page is: ", this.state.currentPage)
-        //       console.log(addFirstItemEvent);
-        //       console.log(addFirstItemEvent.detail);
-        //       // deleteOnlyItemEvent
-        //       this.handleGetPageResults(addFirstItemEvent);
-        //     }
-
         //   })
+
+        this.getCurrentPageResults()
+          .then(() => {
+            alert(`${word} has been added to the glossary!`);
+            // console.log("Are we here? ", this.state.glossaryPage.length);
+            if (this.state.glossaryPage.length === 10) {
+              // var event = ;
+              this.state.nPages += 1;
+              var addFirstItemEvent = new CustomEvent('addFirstItemEvent', {detail: this.state.currentPage + 1});
+              console.log("Current Page is: ", this.state.currentPage)
+              console.log(addFirstItemEvent);
+              console.log(addFirstItemEvent.detail);
+              // deleteOnlyItemEvent
+              this.handleGetPageResults(addFirstItemEvent);
+            }
+
+          })
 
       })
       .catch((error) => {
