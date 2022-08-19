@@ -25,6 +25,7 @@ class Glossary extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleDisplayGlossary = this.handleDisplayGlossary.bind(this);
     this.handleGetPageResults = this.handleGetPageResults.bind(this);
+    this.getCurrentPageResults = this.getCurrentPageResults.bind(this);
   }
 
   componentDidMount() {
@@ -47,20 +48,44 @@ class Glossary extends React.Component {
 
 
   handleGetPageResults(event) {
-    console.log("Page Clicked: ", event.target.value);
+    // console.log("Page Clicked: ", event.target.value || event.detail);
+    var currentPage = event.target === null ? event.detail : event.target.value;
     axios.request({
       url: '/glossary/page',
       method: 'post',
       data: {
           "nPages": this.state.nPages,
-          "currentPage": event.target.value
+          "currentPage": currentPage
         }
     })
     .then((response) => {
       // console.log("Axios GET request: ");
       // console.log(response);
       this.setState({glossaryPage: response.data});
-      this.setState({currentPage: event.target.value});
+      this.setState({currentPage: currentPage });
+      // console.log("initial state set successfully!")
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+  getCurrentPageResults() {
+    console.log("Current Page: ", this.state.currentPage);
+    return axios.request({
+      url: '/glossary/page',
+      method: 'post',
+      data: {
+          "nPages": this.state.nPages,
+          "currentPage": this.state.currentPage
+        }
+    })
+    .then((response) => {
+      // console.log("Axios GET request: ");
+      // console.log(response);
+      this.setState({glossaryPage: response.data});
+      // this.setState({currentPage: event.target.value});
       // console.log("initial state set successfully!")
     })
     .catch((error) => {
@@ -98,16 +123,38 @@ class Glossary extends React.Component {
     axios.post('/glossary', input)
       .then((response) => {
         // console.log("Word saved to the glossary!");
-        axios.get('/glossary')
-          .then((response) => {
-            // console.log("GET request success!");
-            this.setState({glossary: response.data});
-            // console.log('state updated successfully');
+        // axios.get('/glossary')
+        //   .then((response) => {
+        //     // console.log("GET request success!");
+        //     this.setState({glossary: response.data});
+        //     // console.log('state updated successfully');
+        //   })
+
+        this.getCurrentPageResults()
+          .then(() => {
+            alert(`${word}, has been added to the glossary!`);
           })
+
+        // this.getCurrentPageResults()
+        //   .then(() => {
+        //     alert(`${word}, has been added to the glossary!`);
+        //     console.log("Are we here? ", this.state.glossaryPage.length);
+        //     if (this.state.glossaryPage.length === 10) {
+        //       // var event = ;
+        //       var addFirstItemEvent = new CustomEvent('addFirstItemEvent', {detail: this.state.currentPage + 1});
+        //       console.log("Current Page is: ", this.state.currentPage)
+        //       console.log(addFirstItemEvent);
+        //       console.log(addFirstItemEvent.detail);
+        //       // deleteOnlyItemEvent
+        //       this.handleGetPageResults(addFirstItemEvent);
+        //     }
+
+        //   })
+
       })
       .catch((error) => {
         console.log(error);
-        alert(`The word, ${word},  already exists in the glossary. Please add a new word or edit the existing word in the glossary below!`);
+        alert(`${word} already exists in the glossary. Please add a new word or edit the existing word in the glossary below!`);
       });
 
   }
@@ -124,12 +171,32 @@ class Glossary extends React.Component {
     })
       .then((res) => {
         console.log(res);
-        axios.get('/glossary')
-          .then((response) => {
-            // console.log(response.data);
-            this.setState({glossary: response.data});
-            // console.log(`successfully deleted word: ${event.target.value}!`);
-          })
+        // axios.get('/glossary')
+        //   .then((response) => {
+        //     // console.log(response.data);
+        //     this.setState({glossary: response.data});
+        //     this.setState({glossaryPage: this.state.glossary.slice(0, 10)});
+        //     // console.log(`successfully deleted word: ${event.target.value}!`);
+        //   })
+        this.getCurrentPageResults()
+          .then(() => {
+            alert(`${word} has been removed from the glossary.`);
+            console.log("Are we here? ", this.state.glossaryPage.length);
+            if (this.state.glossaryPage.length === 0) {
+              // var event = ;
+              var deleteOnlyItemEvent = new CustomEvent('deleteOnlyItem', {detail: this.state.currentPage - 1});
+              console.log("Current Page is: ", this.state.currentPage)
+              console.log(deleteOnlyItemEvent);
+              console.log(deleteOnlyItemEvent.detail);
+              // deleteOnlyItemEvent
+              this.handleGetPageResults(deleteOnlyItemEvent);
+            }
+
+          });
+
+
+        // console.log("Page Clicked: ", event.target.value);
+
       })
       .catch((error) => {
         console.log(error);
@@ -138,6 +205,7 @@ class Glossary extends React.Component {
 
 
   handleEdit(event) {
+    console.log(event.target);
     var word = event.target.value;
     var description = window.prompt("Enter new description:");
     var input = {
@@ -148,12 +216,18 @@ class Glossary extends React.Component {
     axios.post('/glossary/update', input)
       .then((response) => {
         // console.log("Word saved to the glossary!");
-        axios.get('/glossary')
-          .then((response) => {
-            // console.log("GET request success!");
-            this.setState({glossary: response.data});
-            // console.log('state updated successfully');
+        // axios.get('/glossary')
+        //   .then((response) => {
+        //     // console.log("GET request success!");
+        //     this.setState({glossary: response.data});
+        //     // this.setState({glossaryPage: this.state.glossary.slice(0, 10)});
+        //     // console.log('state updated successfully');
+        //   })
+        this.getCurrentPageResults()
+          .then(() => {
+            alert(`The definition for ${word} has been modified.`);
           })
+
       })
       .catch((error) => {
         console.log(error);

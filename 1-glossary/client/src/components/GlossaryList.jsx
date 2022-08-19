@@ -9,7 +9,7 @@ class GlossaryList extends React.Component {
 
   render() {
 
-    var {glossary, glossaryPage, searchText,
+    var {glossary, glossaryPage, currentPage, searchText,
          handleRemove, handleEdit,
          handleDisplayGlossary} = this.props;
 

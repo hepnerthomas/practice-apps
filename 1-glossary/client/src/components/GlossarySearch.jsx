@@ -12,7 +12,9 @@ class GlossarySearch extends React.Component {
       <div>
         <h2>Glossary Search</h2>
         <form onSubmit={handleSearch}>
-          <input type="text" id="search" name="search" maxLength="100" size="70"></input>
+          <input placeholder="What word are you looking for?"
+                 type="text" id="search" name="search"
+                 maxLength="100" size="70"></input>
           <button type="submit">Search</button>
         </form>
       </div>
