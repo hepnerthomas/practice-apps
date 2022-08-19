@@ -1,9 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
+import App from "./components/App.jsx";
+
 
 render(
   <div>
-    <p>Hello, World!</p>
+    <h2>Checkout App</h2>
+    <App />
     <p>
       <code>Page Cookie: {JSON.stringify(document.cookie, undefined, "\t")}</code>
     </p>

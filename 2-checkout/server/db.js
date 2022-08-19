@@ -17,7 +17,7 @@ db.connectAsync()
   // Create Database
   .then(() =>
     db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS responses \
+      "CREATE TABLE IF NOT EXISTS users \
       ( \
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, \
         user_id VARCHAR(60), \
@@ -40,7 +40,7 @@ db.connectAsync()
   // // Insert test data into db
   // .then(() => {
   //   db.queryAsync(
-  //     " INSERT INTO responses () \
+  //     " INSERT INTO users () \
   //       VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password', \
   //       '208 S 49th Street', 'no second line', 'Yakima', \
   //       'WA', 98901, '5094943965', 'credit card number', '2022-08-19', 309, 98901 \
@@ -53,7 +53,7 @@ db.connectAsync()
 // Post: add user data to the responses table
 db.updateAsync = (userInfo) => {
   return db.queryAsync(
-    " INSERT INTO responses () \
+    " INSERT INTO users () \
       VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
     ",
     userInfo
