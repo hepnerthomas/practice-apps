@@ -25,17 +25,17 @@ class Form2 extends React.Component {
                   name="city" maxLength="30" size="30"></input>
             <label htmlFor="state">State: </label>
             <input placeholder="State" type="text" id="state"
-                  name="state" maxLength="30" size="30"></input>
+                  name="state" maxLength="2" size="30"></input>
           </div>
           <div>
             <label htmlFor="zip">Zipcode: </label>
             <input placeholder="Zipcode" type="text" id="zip"
-                  name="zip" maxLength="30" size="30"></input>
+                  name="zip" maxLength="5" size="30"></input>
           </div>
           <div>
             <label htmlFor="phone">Phone Number: </label>
             <input placeholder="Phone Number" type="text" id="phone"
-                  name="phone" maxLength="30" size="30"></input>
+                  name="phone" maxLength="10" size="30"></input>
           </div>
           <input type="submit" value="Next" onClick={handleNext}></input>
       </form>

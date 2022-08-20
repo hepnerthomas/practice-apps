@@ -23,15 +23,27 @@ db.connectAsync()
         user_id VARCHAR(60), \
         name VARCHAR(30), \
         email VARCHAR(30), \
-        password VARCHAR(60) \
+        password VARCHAR(60), \
+        line1 VARCHAR(50), \
+        line2 VARCHAR(50), \
+        city VARCHAR(30), \
+        state VARCHAR(20), \
+        zipcode INTEGER, \
+        phone_number VARCHAR(20), \
+        credit_card VARCHAR(50), \
+        expiry_date VARCHAR(5), \
+        cvv INTEGER, \
+        billing_zip_code INTEGER \
       )"
     )
   )
-  // // Insert test data into db
+  // Insert test data into db
   // .then(() => {
   //   db.queryAsync(
   //     " INSERT INTO user_accounts () \
-  //       VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password' \
+  //       VALUES(NULL, 'Thomas_Fake_Id', 'Thomas Hepner', 'hepner.thomas@gmail.com', 'password', \
+  //       '208 S 49th Street', 'no second line', 'Yakima', \
+  //       'WA', 98901, '5094943965', 'credit card number', '2022-08-19', 309, 98901 \
   //       ); \
   //     "
   //   )
@@ -43,7 +55,7 @@ db.connectAsync()
 db.addUserAccountAsync = (userInfo) => {
   return db.queryAsync(
     " INSERT INTO user_accounts () \
-      VALUES(NULL, ?, ?, ?, ?) \
+      VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
     ",
     userInfo
   );

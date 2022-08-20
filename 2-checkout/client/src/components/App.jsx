@@ -3,6 +3,7 @@ import Form1 from './Form1.jsx'
 import Form2 from './Form2.jsx'
 import Form3 from './Form3.jsx'
 import Confirmation from './Confirmation.jsx'
+const axios = require('axios');
 
 class App extends React.Component {
 
@@ -107,7 +108,7 @@ class App extends React.Component {
         phoneNumber: this.state.userInfo.phoneNumber,
         creditCard: cc,
         expiryDate: expiryDate,
-        CVV: cvv,
+        cvv: cvv,
         billingZipCode: billingZipCode
       }
 
@@ -118,7 +119,26 @@ class App extends React.Component {
     event.preventDefault();
     // isCheckout: true,
     // console.log(event)
-    this.setState({currentForm: undefined, isCheckout: true});
+    var data = this.state.userInfo;
+    data.zipcode = parseInt(data.zipcode);
+    data.cvv = parseInt(data.cvv);
+    data.billingZipCode = parseInt(data.billingZipCode);
+    console.log(data.zipcode, data.cvv, data.billingZipCode);
+    console.log(data);
+    axios.post('/checkout', data)
+      .then((response) => {
+        console.log("SUCCESS: Submitted form data to the database.");
+      })
+      .catch((err) => {
+        console.log("FAIL: Did not submit form data to the database.");
+      });
+
+    this.setState({
+      currentForm: undefined, isCheckout: true
+    });
+
+
+
   }
 
   render() {
