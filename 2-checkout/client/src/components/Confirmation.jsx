@@ -20,7 +20,7 @@ class Confirmation extends React.Component {
       <div>
         <h3>Confirmation Details:</h3>
         {confirmationElements}
-        <button type="submit" onClick={handleConfirmation}>Submit</button>
+        <button type="submit" onClick={handleConfirmation}>Purchase</button>
       </div>
 
     )
