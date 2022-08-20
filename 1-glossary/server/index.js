@@ -12,6 +12,7 @@ const app = express();
 // Middleware
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
@@ -67,10 +68,12 @@ app.post('/glossary', (req, res) => {
 
 
 // delete
-app.delete('/glossary', (req, res) => {
+app.delete('/glossary/words/:word', (req, res) => {
+  console.log("Request Params: ");
+  console.log(req.params);
   // console.log("request body");
   // console.log(req.body);
-  db.remove(req.body)
+  db.remove(req.params)
   .then(() => {
     res.sendStatus(200);
   })

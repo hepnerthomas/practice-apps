@@ -1,5 +1,6 @@
 import React from "react";
 const axios = require('axios');
+const qs = require('qs');
 
 // Import React Components
 import GlossaryList from './GlossaryList.jsx';
@@ -166,11 +167,14 @@ class Glossary extends React.Component {
     // console.log(event);
     var word = event.target.value;
     var input = {"word": event.target.value};
+    // const params = qs.stringify({ "word": event.target.value });
+    // console.log(event.target.value);
+    // params.append('word', event.target.value);
     // console.log(input);
-    axios.delete('/glossary', {
-      method: 'delete',
-      data: input
-    })
+    // console.log(params);
+
+    // construct url
+    axios.delete('/glossary/words/' + event.target.value)
       .then((res) => {
         console.log(res);
         // axios.get('/glossary')
@@ -183,7 +187,7 @@ class Glossary extends React.Component {
         this.getCurrentPageResults()
           .then(() => {
             alert(`${word} has been removed from the glossary.`);
-            console.log("Are we here? ", this.state.glossaryPage.length);
+            // console.log("Are we here? ", this.state.glossaryPage.length);
             if (this.state.glossaryPage.length === 0) {
               // var event = ;
               this.state.nPages = this.state.nPages > 1 ? this.state.nPages - 1 : 1;
