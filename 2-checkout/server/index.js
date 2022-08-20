@@ -12,7 +12,7 @@ const app = express();
 // Middleware to read request body
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
-// do we need cookie Parser middleware?
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // Adds `req.session_id` based on the incoming cookie value.
 // Generates a new session if one does not exist.
@@ -33,11 +33,12 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
  */
 
 // router to post user information to the database
-app.post('/checkout', (req, res) => {
-  // middleware: bodyParser or cookieParser??
+app.post('/checkout/create_account', (req, res) => {
+  // middleware: bodyParser and urlencoded
   // call asynchronous database method to add data from req.body to the server
-  console.log("Request Body: ", req.body);
-  db.updateAsync(req.body)
+  var userInfo = [req.session_id].concat(Object.values(req.body));
+  console.log("User Info: ", userInfo);
+  db.addUserAccountAsync(userInfo)
     .then((response) => {
       res.sendStatus(201);
     })
