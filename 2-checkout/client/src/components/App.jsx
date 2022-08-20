@@ -45,7 +45,18 @@ class App extends React.Component {
     var password = event.target.form[2].value;
     console.log(name, email, password)
 
-    this.setState({currentForm: 2, name: name, email: email, password: password});
+    this.setState({
+      currentForm: 2 //,
+      // userInfo: {
+      //   name: name,
+      //   email: email,
+      //   password: password,
+      //   line1: undefined, line2: undefined, city: undefined, state: undefined, zipcode: undefined, phoneNumber: undefined, creditCard: undefined, expiry_date: undefined,cvv: undefined, billingZipCode: undefined
+      // }
+      // userInfo.name: name,
+      // userInfo.email: email,
+      // userInfo.password: password
+    });
   }
 
   handleForm2(event) {
@@ -91,6 +102,8 @@ class App extends React.Component {
   handleConfirmation(event) {
     event.preventDefault();
     // isCheckout: true,
+    console.log(event)
+    this.setState({currentForm: undefined, isCheckout: true});
   }
 
   render() {

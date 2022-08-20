@@ -9,7 +9,9 @@ class Confirmation extends React.Component {
   render() {
     const {handleConfirmation, userInfo} = this.props;
     let keys = Object.keys(userInfo);
+    let values = Object.values(userInfo);
     console.log("Keys: ", keys);
+    console.log("Values: " , values)
     let confirmationElements = keys.map((key) => {
       return <div key={key}>{key}: {userInfo[key]}</div>;
     })
@@ -18,7 +20,7 @@ class Confirmation extends React.Component {
       <div>
         <h3>Confirmation Details:</h3>
         {confirmationElements}
-        <button>Submit</button>
+        <button type="submit" onClick={handleConfirmation}>Submit</button>
       </div>
 
     )
