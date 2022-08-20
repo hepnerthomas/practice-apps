@@ -45,6 +45,7 @@ app.post('/checkout', (req, res) => {
   // middleware: bodyParser and urlencoded
   // call asynchronous database method to add data from req.body to the server
   var userInfo = [req.session_id].concat(Object.values(req.body));
+  // var userInfo = [req.session_id].concat(req.body);
   console.log("User Info: ", userInfo);
   db.addUserAccountAsync(userInfo)
     .then((response) => {

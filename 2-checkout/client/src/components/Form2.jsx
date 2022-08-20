@@ -29,13 +29,13 @@ class Form2 extends React.Component {
           </div>
           <div>
             <label htmlFor="zip">Zipcode: </label>
-            <input placeholder="Zipcode" type="text" id="zip"
-                  name="zip" maxLength="5" size="30"></input>
+            <input placeholder="Zipcode" type="text" id="zipcode"
+                  name="zipcode" maxLength="5" size="30"></input>
           </div>
           <div>
             <label htmlFor="phone">Phone Number: </label>
-            <input placeholder="Phone Number" type="text" id="phone"
-                  name="phone" maxLength="10" size="30"></input>
+            <input placeholder="Phone Number" type="text" id="phoneNumber"
+                  name="phoneNumber" maxLength="10" size="30"></input>
           </div>
           <input type="submit" value="Next" onClick={handleNext}></input>
       </form>

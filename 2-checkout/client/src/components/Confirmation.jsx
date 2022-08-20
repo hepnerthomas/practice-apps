@@ -8,6 +8,8 @@ class Confirmation extends React.Component {
 
   render() {
     const {handleConfirmation, userInfo} = this.props;
+    delete userInfo['isCheckout'];
+    delete userInfo['currentForm']
     let keys = Object.keys(userInfo);
     // let values = Object.values(userInfo);
     // console.log("Keys: ", keys);
