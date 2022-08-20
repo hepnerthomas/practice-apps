@@ -43,19 +43,16 @@ class App extends React.Component {
     var name = event.target.form[0].value;
     var email = event.target.form[1].value;
     var password = event.target.form[2].value;
-    console.log(name, email, password)
+    // console.log(name, email, password)
 
     this.setState({
-      currentForm: 2 //,
-      // userInfo: {
-      //   name: name,
-      //   email: email,
-      //   password: password,
-      //   line1: undefined, line2: undefined, city: undefined, state: undefined, zipcode: undefined, phoneNumber: undefined, creditCard: undefined, expiry_date: undefined,cvv: undefined, billingZipCode: undefined
-      // }
-      // userInfo.name: name,
-      // userInfo.email: email,
-      // userInfo.password: password
+      currentForm: 2,
+      userInfo: {
+        name: name,
+        email: email,
+        password: password,
+        // line1: undefined, line2: undefined, city: undefined, state: undefined, zipcode: undefined, phoneNumber: undefined, creditCard: undefined, expiry_date: undefined,cvv: undefined, billingZipCode: undefined
+      }
     });
   }
 
@@ -72,12 +69,18 @@ class App extends React.Component {
 
     this.setState({
         currentForm: 3,
-        line1: line1,
-        line2: line2,
-        city: city,
-        state: state,
-        zipcode: zipcode,
-        phoneNumber: phoneNumber
+        userInfo: {
+          name: this.state.userInfo.name,
+          email: this.state.userInfo.email,
+          password: this.state.userInfo.password,
+          line1: line1,
+          line2: line2,
+          city: city,
+          state: state,
+          zipcode: zipcode,
+          phoneNumber: phoneNumber
+        }
+
       });
   }
 
@@ -92,17 +95,29 @@ class App extends React.Component {
 
     this.setState({
       currentForm: 4,
-      creditCard: cc,
-      expiryDate: expiryDate,
-      CVV: cvv,
-      billingZipCode: billingZipCode
+      userInfo: {
+        name: this.state.userInfo.name,
+        email: this.state.userInfo.email,
+        password: this.state.userInfo.password,
+        line1: this.state.userInfo.line1,
+        line2: this.state.userInfo.line2,
+        city: this.state.userInfo.city,
+        state: this.state.userInfo.state,
+        zipcode: this.state.userInfo.zipcode,
+        phoneNumber: this.state.userInfo.phoneNumber,
+        creditCard: cc,
+        expiryDate: expiryDate,
+        CVV: cvv,
+        billingZipCode: billingZipCode
+      }
+
     });
   }
 
   handleConfirmation(event) {
     event.preventDefault();
     // isCheckout: true,
-    console.log(event)
+    // console.log(event)
     this.setState({currentForm: undefined, isCheckout: true});
   }
 

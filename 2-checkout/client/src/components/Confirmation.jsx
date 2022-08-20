@@ -9,13 +9,13 @@ class Confirmation extends React.Component {
   render() {
     const {handleConfirmation, userInfo} = this.props;
     let keys = Object.keys(userInfo);
-    let values = Object.values(userInfo);
-    console.log("Keys: ", keys);
-    console.log("Values: " , values)
+    // let values = Object.values(userInfo);
+    // console.log("Keys: ", keys);
+    // console.log("Values: " , values)
     let confirmationElements = keys.map((key) => {
       return <div key={key}>{key}: {userInfo[key]}</div>;
     })
-    console.log("confirmation elements: ", confirmationElements);
+    // console.log("confirmation elements: ", confirmationElements);
     return (
       <div>
         <h3>Confirmation Details:</h3>
