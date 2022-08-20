@@ -249,9 +249,12 @@ class Glossary extends React.Component {
     event.preventDefault();
     // console.log(event.target[0].value);
     console.log("submitted search query!");
-    var input = {"word": event.target[0].value};
-    console.log(input);
-    axios.post('/glossary/search', input)
+    // var input = {"word": event.target[0].value};
+    var word = event.target[0].value;
+    // console.log(input);
+    var url = "/glossary/word/" + word;
+    console.log(url);
+    axios.get(url)
       .then((response) => {
 
         console.log(response);
@@ -261,7 +264,7 @@ class Glossary extends React.Component {
         // Reset everything else
         this.setState({
           glossaryPage: this.state.glossary.slice(0, 10),
-          searchText: input.word,
+          searchText: word,
           nPages: Math.ceil(this.state.glossary.length/10),
           currentPage: 1
         });

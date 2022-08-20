@@ -101,10 +101,13 @@ app.patch('/glossary/word/:word/description/:description', (req, res) => {
 
 
 // search
-app.post('/glossary/search', (req, res) => {
-  console.log("request body");
-  console.log(req.body);
-  db.search(req.body)
+app.get('/glossary/word/:word', (req, res) => {
+  console.log("Request Parameters:");
+  console.log(req.params);
+  // console.log("request body");
+  // console.log(req.body);
+  // db.search(req.body)
+  db.search(req.params)
   .then((response) => {
     console.log("response: ");
     console.log(response);
