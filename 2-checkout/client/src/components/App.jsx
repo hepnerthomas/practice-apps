@@ -35,6 +35,9 @@ class App extends React.Component {
   // helper function
   handleFormSubmit(event) {
     event.preventDefault();
+    console.log(event);
+    console.log(event.target.form[1].value.length);
+    console.log(event.target.form[1].attributes.maxLength);
     // console.log("Input Change in Progress: ");
     const target = event.target.form;
     // const value = target.value;
@@ -66,15 +69,6 @@ class App extends React.Component {
 
   handleConfirmation(event) {
     event.preventDefault();
-    // isCheckout: true,
-    // console.log(event)
-    // var data = this.state.userInfo;
-    // data.zipcode = parseInt(data.zipcode);
-    // data.cvv = parseInt(data.cvv);
-    // data.billingZipCode = parseInt(data.billingZipCode);
-    // console.log(data.zipcode, data.cvv, data.billingZipCode);
-    // console.log(data);
-    // console.log('do I get here?');
     var data = this.state;
     delete data['isCheckout'];
     delete data['currentForm'];
