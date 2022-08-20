@@ -2,6 +2,7 @@ import React from 'react';
 import Form1 from './Form1.jsx'
 import Form2 from './Form2.jsx'
 import Form3 from './Form3.jsx'
+import Confirmation from './Confirmation.jsx'
 
 class App extends React.Component {
 
@@ -71,15 +72,15 @@ class App extends React.Component {
 
   handleForm3(event) {
     event.preventDefault();
+    // console.log(event.target.form);
     var cc = event.target.form[0].value;
     var expiryDate = event.target.form[1].value;
     var cvv = event.target.form[2].value;
     var billingZipCode = event.target.form[3].value;
-    console.log(name, email, password)
+    console.log(cc, expiryDate, cvv, billingZipCode)
 
     this.setState({
-      currentForm: undefined,
-      isCheckout: true,
+      currentForm: 4,
       creditCard: cc,
       expiryDate: expiryDate,
       CVV: cvv,
@@ -89,6 +90,7 @@ class App extends React.Component {
 
   handleConfirmation(event) {
     event.preventDefault();
+    // isCheckout: true,
   }
 
   render() {
@@ -116,12 +118,13 @@ class App extends React.Component {
       return (
         <Form3 handleNext={this.handleForm3}/>
       )
-    }
 
-    else if (this.state.currentForm === 4) {
+
+    } else if (this.state.currentForm === 4) {
       console.log("Confirmation:");
       return (
-        <Form3 handleConfirmation={this.handleConfirmation}/>
+        <Confirmation handleConfirmation={this.handleConfirmation}
+                      userInfo={this.state.userInfo}/>
       )
     }
 
