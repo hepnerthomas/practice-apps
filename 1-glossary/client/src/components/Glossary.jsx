@@ -174,7 +174,7 @@ class Glossary extends React.Component {
     // console.log(params);
 
     // construct url
-    axios.delete('/glossary/words/' + event.target.value)
+    axios.delete('/glossary/word/' + event.target.value)
       .then((res) => {
         console.log(res);
         // axios.get('/glossary')
@@ -215,12 +215,14 @@ class Glossary extends React.Component {
     console.log(event.target);
     var word = event.target.value;
     var description = window.prompt("Enter new description:");
-    var input = {
-      original:{"word": event.target.value},
-      replacement:  {"word": event.target.value, "description": description}
-    }
-    console.log(input);
-    axios.post('/glossary/update', input)
+    // var input = {
+    //   original:{"word": event.target.value},
+    //   replacement:  {"word": event.target.value, "description": description}
+    // }
+    // console.log(input);
+    var url = "/glossary/word/" + word + "/description/" + description;
+    console.log(url);
+    axios.patch(url)
       .then((response) => {
         // console.log("Word saved to the glossary!");
         // axios.get('/glossary')

@@ -68,7 +68,7 @@ app.post('/glossary', (req, res) => {
 
 
 // delete
-app.delete('/glossary/words/:word', (req, res) => {
+app.delete('/glossary/word/:word', (req, res) => {
   console.log("Request Params: ");
   console.log(req.params);
   // console.log("request body");
@@ -83,11 +83,13 @@ app.delete('/glossary/words/:word', (req, res) => {
 });
 
 // update
-app.post('/glossary/update', (req, res) => {
+app.patch('/glossary/word/:word/description/:description', (req, res) => {
+  console.log("Request Parameters: ");
+  console.log(req.params);
   // console.log("request body");
   // console.log(req.body.original);
   // console.log(req.body.replacement);
-  db.replace(req.body.original, req.body.replacement)
+  db.replace(req.params.word, req.params.description)
   .then(() => {
     res.sendStatus(200);
   })

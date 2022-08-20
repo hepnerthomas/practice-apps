@@ -75,7 +75,10 @@ let remove = (term) => {
 }
 
 // edit an entry
-let replace = (filter, replacement) => {
+// let replace = (filter, replacement) => {
+  let replace = (word, description) => {
+  var filter = {"word": word};
+  var replacement = {"word": word, "description": description};
   return Glossary.findOneAndReplace(filter, replacement);
 }
 
